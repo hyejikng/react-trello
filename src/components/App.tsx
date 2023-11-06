@@ -56,6 +56,7 @@ function App() {
                     )}
                   </Draggable>
                 ))}
+                {magic.placeholder}
               </Board>
             )}
           </Droppable>
