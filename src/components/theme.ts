@@ -8,15 +8,15 @@ export const theme: DefaultTheme = {
 };
 
 export const LightTheme: DefaultTheme = {
-  bgColor: '#f1f2f6',
+  bgColor: '#ffecd1',
   textColor: '#1e272e',
   accentColor: '#ff6b81',
   listColor: '#fff',
 };
 
 export const DarkTheme: DefaultTheme = {
-  bgColor: '#57606f',
-  textColor: '#dfe4ea',
-  accentColor: '#b71540',
-  listColor: '#3c6382',
+  bgColor: '#001524',
+  boardColor: '#78290f',
+  cardColor: '#ff7D00',
+  textColor: '#ffecd1',
 };
