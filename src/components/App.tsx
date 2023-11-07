@@ -62,7 +62,7 @@ function App() {
             {(magic) => (
               <Board ref={magic.innerRef} {...magic.droppableProps}>
                 {toDos.map((toDo, index) => (
-                  <Draggable draggableId={toDo} index={index}>
+                  <Draggable key={toDo} draggableId={toDo} index={index}>
                     {(magic) => (
                       <Card
                         ref={magic.innerRef}
