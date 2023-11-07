@@ -41,9 +41,18 @@ const Card = styled.div`
 
 function App() {
   const [toDos, setToDos] = useRecoilState(toDoState);
-  const onDragEnd = ({ destination, source }: DropResult) => {
+  const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
     // console.log('dragging finished');
     // console.log(args);
+    if (!destination) return;
+    setToDos((oldToDos) => {
+      const copyToDos = [...oldToDos]; // default value of 'toDoState' = copyToDos
+      //1) Delete item on source.index
+      copyToDos.splice(source.index, 1);
+      //2) Put back the item on the destination.index
+      copyToDos.splice(destination.index, 0, draggableId);
+      return copyToDos; // the type of return value is an array.
+    });
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
