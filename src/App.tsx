@@ -12,13 +12,14 @@ import Board from './components/Board';
 
 const Boards = styled.div`
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  max-width: 480px;
+  max-width: 680px;
   width: 100%;
   height: 100vh;
   margin: 0 auto;
@@ -28,19 +29,20 @@ const Wrapper = styled.div`
 
 function App() {
   const [toDos, setToDos] = useRecoilState(toDoState);
+  console.log(toDos);
 
   const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
     // console.log('dragging finished');
     // console.log(args);
     if (!destination) return;
-    setToDos((oldToDos) => {
-      const copyToDos = [...oldToDos]; // default value of 'toDoState' = copyToDos
-      //1) Delete item on source.index
-      copyToDos.splice(source.index, 1);
-      //2) Put back the item on the destination.index
-      copyToDos.splice(destination.index, 0, draggableId);
-      return copyToDos; // the type of return value is an array.
-    });
+    // setToDos((oldToDos) => {
+    //   const copyToDos = [...oldToDos]; // default value of 'toDoState' = copyToDos
+    //   //1) Delete item on source.index
+    //   copyToDos.splice(source.index, 1);
+    //   //2) Put back the item on the destination.index
+    //   copyToDos.splice(destination.index, 0, draggableId);
+    //   return copyToDos; // the type of return value is an array.
+    // });
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -56,6 +58,9 @@ function App() {
               </Board>
             )}
           </Droppable> */}
+          {Object.keys(toDos).map((boardId) => (
+            <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
+          ))}
         </Boards>
       </Wrapper>
     </DragDropContext>
