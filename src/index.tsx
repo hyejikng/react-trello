@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
-import { DarkTheme } from './components/theme';
+import { DarkTheme } from './theme';
 import { createGlobalStyle } from 'styled-components';
-import App from './components/App';
+import App from './App';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
