@@ -8,6 +8,13 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { toDoState } from './atoms';
 import DraggableCard from './components/DraggableCard';
+import Board from './components/Board';
+
+const Boards = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  width: 100%;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,20 +24,6 @@ const Wrapper = styled.div`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-`;
-
-const Boards = styled.div`
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  width: 100%;
-`;
-
-const Board = styled.div`
-  padding: 20px 10px;
-  padding-top: 30px;
-  background-color: ${(props) => props.theme.boardColor};
-  border-radius: 5px;
-  min-height: 200px;
 `;
 
 function App() {
@@ -53,7 +46,7 @@ function App() {
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
         <Boards>
-          <Droppable droppableId="one">
+          {/*   <Droppable droppableId="one">
             {(magic) => (
               <Board ref={magic.innerRef} {...magic.droppableProps}>
                 {toDos.map((toDo, index) => (
@@ -62,8 +55,9 @@ function App() {
                 {magic.placeholder}
               </Board>
             )}
-          </Droppable>
+          </Droppable> */}
         </Boards>
+        <Board />
       </Wrapper>
     </DragDropContext>
   );
