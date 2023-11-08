@@ -57,7 +57,6 @@ function App() {
             )}
           </Droppable> */}
         </Boards>
-        <Board />
       </Wrapper>
     </DragDropContext>
   );

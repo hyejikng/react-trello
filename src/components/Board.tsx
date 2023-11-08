@@ -11,9 +11,14 @@ const Wrapper = styled.div`
   min-height: 200px;
 `;
 
-function Board() {
+interface IBoardProps {
+  toDos: string[];
+  boardId: string;
+}
+
+function Board({ toDos, boardId }: IBoardProps) {
   return (
-    <Droppable droppableId="one">
+    <Droppable droppableId={boardId}>
       {(magic) => (
         <Wrapper ref={magic.innerRef} {...magic.droppableProps}>
           {toDos.map((toDo, index) => (
