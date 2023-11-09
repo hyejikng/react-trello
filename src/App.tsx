@@ -29,17 +29,31 @@ const Wrapper = styled.div`
 
 function App() {
   const [toDos, setToDos] = useRecoilState(toDoState);
-  console.log(toDos);
   const onDragEnd = (info: DropResult) => {
     const { destination, source, draggableId } = info;
+    if (!destination) return; // destinatin의 정의가 없으면 함수의 실행을 멈춘다. (ex. 보드 밖으로 drag한 경우)
     if (destination?.droppableId === source.droppableId) {
       // same board movement.
       setToDos((allBoards) => {
         // console.log(allBoards);
-        const boardCopy = [...allBoards[source.droppableId]]; // [...allBoards.(source.droppableId)
+        const boardCopy = [...allBoards[source.droppableId]]; // [...allBoards.(source.droppableId) selected board
         boardCopy.splice(source.index, 1);
         boardCopy.splice(destination?.index, 0, draggableId);
         return { ...allBoards, [source.droppableId]: boardCopy };
+      });
+    }
+    if (destination?.droppableId !== source.droppableId) {
+      // cross board movement
+      setToDos((allBoards) => {
+        const sourceBoard = [...allBoards[source.droppableId]];
+        const targetBoard = [...allBoards[destination.droppableId]];
+        sourceBoard.splice(source.index, 1);
+        targetBoard.splice(destination?.index, 0, draggableId);
+        return {
+          ...allBoards,
+          [source.droppableId]: sourceBoard,
+          [destination.droppableId]: targetBoard,
+        };
       });
     }
   };
