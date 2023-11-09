@@ -20,13 +20,17 @@ const Title = styled.h2`
 `;
 
 interface IAreaProps {
-  isDraggingOver: boolean;
-  isDraggingFromThis: boolean;
+  $isDraggingOver: boolean;
+  $isDraggingFromThis: boolean;
 }
 
 const Area = styled.div<IAreaProps>`
   background-color: ${(props) =>
-    props.isDraggingOver ? 'pink' : props.isDraggingFromThis ? 'red' : 'blue'};
+    props.$isDraggingOver
+      ? 'pink'
+      : props.$isDraggingFromThis
+      ? 'red'
+      : 'blue'};
   flex-grow: 1;
   transition: backround-color, 0.3s ease-in-out;
   padding: 10px;
@@ -51,8 +55,8 @@ function Board({ toDos, boardId }: IBoardProps) {
       <Droppable droppableId={boardId}>
         {(magic, snapshot) => (
           <Area
-            isDraggingOver={snapshot.isDraggingOver}
-            isDraggingFromThis={Boolean(snapshot.draggingFromThisWith)}
+            $isDraggingOver={snapshot.isDraggingOver}
+            $isDraggingFromThis={Boolean(snapshot.draggingFromThisWith)} // styledComponent에러로 인해 props앞에 $를 붙여 구분.
             ref={magic.innerRef}
             {...magic.droppableProps}
           >
@@ -68,3 +72,5 @@ function Board({ toDos, boardId }: IBoardProps) {
 }
 
 export default Board;
+
+//
