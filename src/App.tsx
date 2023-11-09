@@ -30,20 +30,33 @@ const Wrapper = styled.div`
 function App() {
   const [toDos, setToDos] = useRecoilState(toDoState);
   console.log(toDos);
-
-  const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
-    // console.log('dragging finished');
-    // console.log(args);
-    if (!destination) return;
-    // setToDos((oldToDos) => {
-    //   const copyToDos = [...oldToDos]; // default value of 'toDoState' = copyToDos
-    //   //1) Delete item on source.index
-    //   copyToDos.splice(source.index, 1);
-    //   //2) Put back the item on the destination.index
-    //   copyToDos.splice(destination.index, 0, draggableId);
-    //   return copyToDos; // the type of return value is an array.
-    // });
+  const onDragEnd = (info: DropResult) => {
+    const { destination, source, draggableId } = info;
+    if (destination?.droppableId === source.droppableId) {
+      // same board movement.
+      setToDos((allBoards) => {
+        // console.log(allBoards);
+        const boardCopy = [...allBoards[source.droppableId]]; // [...allBoards.(source.droppableId)
+        boardCopy.splice(source.index, 1);
+        boardCopy.splice(destination?.index, 0, draggableId);
+        return { ...allBoards, [source.droppableId]: boardCopy };
+      });
+    }
   };
+
+  /* const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
+    console.log('dragging finished');
+    console.log(args);
+    if (!destination) return;
+    setToDos((oldToDos) => {
+      const copyToDos = [...oldToDos]; // default value of 'toDoState' = copyToDos
+      //1) Delete item on source.index
+      copyToDos.splice(source.index, 1);
+      //2) Put back the item on the destination.index
+      copyToDos.splice(destination.index, 0, draggableId);
+      return copyToDos; // the type of return value is an array.
+    });
+  }; */
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
@@ -58,6 +71,7 @@ function App() {
               </Board>
             )}
           </Droppable> */}
+          {/* 배열화된 객체 내의 값들을 Object.kes()를 이용해 조회 */}
           {Object.keys(toDos).map((boardId) => (
             <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
           ))}

@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 
 interface IToDoState {
-  [key: string]: string[];
+  [key: string]: string[]; // 변수
 }
 
 export const toDoState = atom<IToDoState>({
