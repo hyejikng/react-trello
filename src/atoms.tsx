@@ -1,15 +1,19 @@
-import { atom, selector } from 'recoil';
+import { atom } from 'recoil';
 
+//Form toDo
+export interface ITodo {
+  id: number;
+  text: string;
+}
 interface IToDoState {
-  [key: string]: string[]; // 변수
+  [key: string]: ITodo[]; // 변수
 }
 
 export const toDoState = atom<IToDoState>({
   key: 'toDo',
-  // default: ['a', 'b', 'c', 'd', 'e'],
   default: {
-    Todo: ['a', 'b'],
-    Doing: ['c'],
-    Done: ['d', 'e'],
+    Todo: [],
+    Doing: [],
+    Done: [],
   },
 });
