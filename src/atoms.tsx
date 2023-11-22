@@ -1,4 +1,12 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+// Store and sync state to Storage
+
+const { persistAtom } = recoilPersist({
+  key: 'recoil-persist',
+  storage: localStorage,
+});
 
 //Form toDo
 export interface ITodo {
@@ -16,4 +24,5 @@ export const toDoState = atom<IToDoState>({
     Doing: [],
     Done: [],
   },
+  effects_UNSTABLE: [persistAtom],
 });
